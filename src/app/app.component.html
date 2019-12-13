@@ -1,0 +1,39 @@
+<app-header></app-header>
+<div class="container">
+  <div class="row justify-content-center" *ngIf="isLoading">
+    <div class="col-md-6 text-center">
+      <app-loader></app-loader>
+    </div>
+  </div>
+  <div class="col-users">
+    <div class="filter-header">
+      <div class="row align-items-center">
+        <div class="col-sm-6">
+          <div class="form-group search-filter">
+            <input type="text" class="form-control" name="search" [(ngModel)]="searchText" placeholder="Find by name">
+            <i class="fas fa-search"></i>
+          </div>
+        </div>
+        <div class="col-sm-6 text-right">
+          <p><strong>{{totalUsers}} People</strong></p>
+        </div>
+      </div>
+    </div>
+    <ul>
+      <li *ngFor="let user of users | filter : searchText">
+        <div>
+          <p>
+            <img [src]="user.avatar" />
+            <strong>{{user.name}}</strong><br><span>{{user.email}}</span>
+          </p>
+          <a href="javascript:void(0)" class="expand-list" (click)="showaddress('address'+user.id, 'icon'+user.id)"><i
+              class="fas fa-chevron-right" id="{{'icon'+user.id}}"></i></a>
+        </div>
+        <p class="address d-none" id="{{'address'+user.id}}"><small><strong>Address:</strong> {{user.address.street}},
+            {{user.address.suite}},
+            {{user.address.city}},
+            {{user.address.zipcode}}</small></p>
+      </li>
+    </ul>
+  </div>
+</div>
